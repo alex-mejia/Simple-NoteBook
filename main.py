@@ -2,9 +2,11 @@ from gui import *
 
 raiz = Tk()
 
+width_of_window = 1150
+height_of_window = 600
+
 def centrar_ventana():
-    width_of_window = 1000
-    height_of_window = 600
+
 
     screen_width = raiz.winfo_screenwidth()
     screen_height = raiz.winfo_screenheight()
@@ -19,7 +21,7 @@ ypos = int(centrar_ventana()[1])
 
 
 raiz.configure(background='black')
-raiz.geometry(f"1100x600+{xpos}+{ypos}")
+raiz.geometry(f"{width_of_window}x{height_of_window}+{xpos}+{ypos}")
 raiz.columnconfigure(0, weight=1)
 raiz.rowconfigure(0, weight=1)
 raiz.rowconfigure(1, weight=2)
