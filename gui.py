@@ -33,11 +33,14 @@ class Gui:
         self._frame_left_botton.columnconfigure(0,weight=1)
 
         # frame donde va la nota
-        self._frame_right = Frame(self._frame_botton, bg='#ffff99')
+        self._frame_right = Frame(self._frame_botton)
         self._frame_right.grid(row=0, column=1, sticky=W + E + N + S)
+        self._frame_right.columnconfigure(0,weight=1)
+        self._frame_right.rowconfigure(0,weight=1)
 
         self.area_control_items()
         self.area_indices()
+        self.area_nota()
 
     def area_control_items(self):
        entry_item = Entry(self._frame_left_top,width=30)
@@ -51,7 +54,9 @@ class Gui:
                             font=Font(family="Sans Serif", size=11))
         lst_items.grid(row=0,column=0,sticky= W + E,padx=5,pady=5)
 
-
+    def area_nota(self):
+        nota = Text(self._frame_right,bg='#ffff99')
+        nota.grid(row=0,column=0, sticky = N+S+E+W,padx=5,pady=5)
 
 
 

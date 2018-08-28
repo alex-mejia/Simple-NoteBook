@@ -1,4 +1,3 @@
-#from tkinter import *
 from gui import *
 
 raiz = Tk()
@@ -23,7 +22,7 @@ raiz.configure(background='black')
 raiz.geometry(f"1000x600+{xpos}+{ypos}")
 raiz.columnconfigure(0, weight=1)
 raiz.rowconfigure(0, weight=1)
-raiz.rowconfigure(1, weight=9)
+raiz.rowconfigure(1, weight=2)
 
 ui = Gui(raiz)
 
