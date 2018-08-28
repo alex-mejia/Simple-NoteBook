@@ -19,7 +19,7 @@ ypos = int(centrar_ventana()[1])
 
 
 raiz.configure(background='black')
-raiz.geometry(f"1000x600+{xpos}+{ypos}")
+raiz.geometry(f"1100x600+{xpos}+{ypos}")
 raiz.columnconfigure(0, weight=1)
 raiz.rowconfigure(0, weight=1)
 raiz.rowconfigure(1, weight=2)

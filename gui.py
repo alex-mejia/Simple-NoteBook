@@ -31,6 +31,7 @@ class Gui:
         self._frame_left_botton = Frame(self._frame_left, bg='#b3b3ff')
         self._frame_left_botton.grid(row=1, column=0, sticky= N + S + W + E,padx=1,pady=1)
         self._frame_left_botton.columnconfigure(0,weight=1)
+        self._frame_left_botton.rowconfigure(0,weight=1)
 
         # frame donde va la nota
         self._frame_right = Frame(self._frame_botton)
@@ -52,11 +53,29 @@ class Gui:
     def area_indices(self):
         lst_items = Listbox(self._frame_left_botton, bg='#b3b3ff',borderwidth=0, highlightthickness=0,
                             font=Font(family="Sans Serif", size=11))
-        lst_items.grid(row=0,column=0,sticky= W + E,padx=5,pady=5)
+        lst_items.grid(row=0,column=0,sticky= N + S + W + E ,padx=5,pady=5)
+
+        #for i in range(30):
+            #lst_items.insert(END,i)
+
+        scroll_vertical = Scrollbar(self._frame_left_botton, command=lst_items.yview)
+        scroll_vertical.grid(row=0, column=1, sticky="nsew")
+        lst_items.config(yscrollcommand=scroll_vertical.set)
 
     def area_nota(self):
-        nota = Text(self._frame_right,bg='#ffff99')
+        nota = Text(self._frame_right,bg='#ffff99',font=Font(family="Sans Serif", size=11))
         nota.grid(row=0,column=0, sticky = N+S+E+W,padx=5,pady=5)
+
+        scroll_vertical = Scrollbar(self._frame_right, command=nota.yview)
+        scroll_vertical.grid(row=0, column=1, sticky="nsew")
+        nota.config(yscrollcommand=scroll_vertical.set)
+
+
+
+
+
+
+
 
 
 
