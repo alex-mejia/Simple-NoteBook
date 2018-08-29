@@ -4,7 +4,7 @@ import controlador
 
 class Gui:
     def __init__(self,raiz):
-        self.__controlador=controlador.Controlador()
+        self.__controlador=controlador.Controlador(raiz)
 
         self.__raiz = raiz
 
@@ -59,9 +59,6 @@ class Gui:
                             font=Font(family="Sans Serif", size=11))
         lst_items.grid(row=0,column=0,sticky= N + S + W + E ,padx=5,pady=5)
 
-        #for i in range(30):
-            #lst_items.insert(END,i)
-
         scroll_vertical = Scrollbar(self.__frame_left_botton, command=lst_items.yview)
         scroll_vertical.grid(row=0, column=1, sticky="nsew")
         lst_items.config(yscrollcommand=scroll_vertical.set)
@@ -79,7 +76,7 @@ class Gui:
         archivo_menu = Menu(barra_menu,tearoff=False)
         ayuda_menu = Menu(barra_menu,tearoff=False)
 
-        archivo_menu.add_command(label="Crear cuaderno")
+        archivo_menu.add_command(label="Crear cuaderno",command=self.__controlador.crear_cuaderno)
         archivo_menu.add_command(label="Cerrar cuaderno")
         archivo_menu.add_separator()
         archivo_menu.add_command(label="Guardar nota")
