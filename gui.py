@@ -1,10 +1,10 @@
 from tkinter import *
 from tkinter.font import Font
-import controlador
+from componentes_cuaderno import *
 
 class Gui:
     def __init__(self,raiz):
-        self.__controlador=controlador.Controlador(raiz)
+        self.__cuaderno = Cuaderno()
 
         self.__raiz = raiz
 
@@ -76,7 +76,7 @@ class Gui:
         archivo_menu = Menu(barra_menu,tearoff=False)
         ayuda_menu = Menu(barra_menu,tearoff=False)
 
-        archivo_menu.add_command(label="Crear cuaderno",command=self.__controlador.crear_cuaderno)
+        archivo_menu.add_command(label="Crear cuaderno",command=self.__cuaderno.crear_cuaderno)
         archivo_menu.add_command(label="Cerrar cuaderno")
         archivo_menu.add_separator()
         archivo_menu.add_command(label="Guardar nota")
