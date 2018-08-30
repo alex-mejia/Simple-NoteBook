@@ -1,5 +1,6 @@
 from gui import *
 import constantes
+from componentes_cuaderno import *
 
 raiz = Tk()
 

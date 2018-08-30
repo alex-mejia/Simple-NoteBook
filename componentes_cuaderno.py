@@ -1,6 +1,7 @@
 
 from tkinter import filedialog
 from modelo import *
+from gui import Gui
 
 class Cuaderno:
     def __init__(self):
@@ -49,6 +50,12 @@ class Cuaderno:
             self.__dividir_nombre_ruta_extension()
             modelo=Modelo(self.__nombre_ruta)
             modelo.crear_cuaderno()
+
+
+
+
+
+
 
 
 

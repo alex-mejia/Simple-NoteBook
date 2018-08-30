@@ -42,19 +42,13 @@ class Gui:
         self.__frame_right.columnconfigure(0,weight=1)
         self.__frame_right.rowconfigure(0,weight=1)
 
-        self.__area_control_items()
-        self.__area_indices()
-        self.__area_nota()
-        self.__creacion_menu()
+        # controles de los indices
+        self.entry_item = Entry(self.__frame_left_top,width=30,state='disabled')
+        self.entry_item.grid(row=0,column=0,padx=2,pady=10)
 
-    def __area_control_items(self):
-       entry_item = Entry(self.__frame_left_top,width=30)
-       entry_item.grid(row=0,column=0,padx=2,pady=10)
+        chk_es_seccion = Checkbutton(self.__frame_left_top, text="Seccion", bg="#9999ff",state='disabled')
+        chk_es_seccion.grid(row=0, column=1, pady=10)
 
-       chk_es_seccion = Checkbutton(self.__frame_left_top, text="Seccion", bg="#9999ff")
-       chk_es_seccion.grid(row=0, column=1, pady=10)
-
-    def __area_indices(self):
         lst_items = Listbox(self.__frame_left_botton, bg='#b3b3ff',borderwidth=0, highlightthickness=0,
                             font=Font(family="Sans Serif", size=11))
         lst_items.grid(row=0,column=0,sticky= N + S + W + E ,padx=5,pady=5)
@@ -63,15 +57,16 @@ class Gui:
         scroll_vertical.grid(row=0, column=1, sticky="nsew")
         lst_items.config(yscrollcommand=scroll_vertical.set)
 
-    def __area_nota(self):
-        nota = Text(self.__frame_right,bg='#ffff99',font=Font(family="Sans Serif", size=11))
+        # control de las notas
+        nota = Text(self.__frame_right,bg='#ffff99',font=Font(family="Sans Serif", size=11),state='disabled')
         nota.grid(row=0,column=0, sticky = N+S+E+W,padx=5,pady=5)
 
         scroll_vertical = Scrollbar(self.__frame_right, command=nota.yview)
         scroll_vertical.grid(row=0, column=1, sticky="nsew")
         nota.config(yscrollcommand=scroll_vertical.set)
 
-    def __creacion_menu(self):
+
+        # menus
         barra_menu = Menu(self.__raiz)
         archivo_menu = Menu(barra_menu,tearoff=False)
         ayuda_menu = Menu(barra_menu,tearoff=False)
@@ -91,6 +86,8 @@ class Gui:
         barra_menu.add_cascade(label="Ayuda", menu=ayuda_menu)
 
         self.__raiz.config(menu=barra_menu)
+
+
 
 
 
