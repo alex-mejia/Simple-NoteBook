@@ -20,10 +20,11 @@ class Modelo:
             self.__cursor.execute("CREATE TABLE ITEMS (ID INTEGER PRIMARY KEY AUTOINCREMENT, ITEM VARCHAR(35))")
             self.__cursor.execute("CREATE TABLE NOTAS (ID INTEGER PRIMARY KEY AUTOINCREMENT, NOTA VARCHAR(10000))")
             self.__conexion.commit()
-            self.__desconectar_bdd()
         except sqlite3.OperationalError as er:
-            print(er.message)
-            print("Error")
-            return
+            #TODO mensaje de error
+            pass
+        finally:
+            self.__desconectar_bdd()
+
 
 

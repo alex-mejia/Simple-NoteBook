@@ -1,7 +1,7 @@
 from tkinter import *
 from tkinter.font import Font
 import constantes
-from controlador import *
+from cuaderno import Cuaderno
 
 raiz = Tk()
 
@@ -88,7 +88,8 @@ barra_menu = Menu(raiz)
 archivo_menu = Menu(barra_menu,tearoff=False)
 ayuda_menu = Menu(barra_menu,tearoff=False)
 
-archivo_menu.add_command(label="Crear cuaderno",command=lambda :crear_cuaderno(entry_item,chk_es_seccion))
+archivo_menu.add_command(label="Crear cuaderno",command=lambda :Cuaderno().crear_cuaderno(entry_item,chk_es_seccion))
+
 archivo_menu.add_command(label="Cerrar cuaderno")
 archivo_menu.add_separator()
 archivo_menu.add_command(label="Guardar nota")
