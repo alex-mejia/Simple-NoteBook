@@ -1,12 +1,14 @@
-import sqlite3
+
 from tkinter import filedialog
+from modelo import *
 
 class Cuaderno:
     def __init__(self):
-        self.__nombre_ruta = "crear cuaderno!"
-        self.__ruta = "crear cuaderno!"
-        self.__nombre = "crear cuaderno!"
-        self.__extension = "crear cuaderno!"
+        self.__nombre_ruta = None
+        self.__ruta = None
+        self.__nombre = None
+        self.__extension = None
+
 
     def get_nombre(self):
         return self.__nombre
@@ -45,7 +47,10 @@ class Cuaderno:
             return
         else:
             self.__dividir_nombre_ruta_extension()
-            #TODO crear logica de creacion del cuaderno
+            modelo=Modelo(self.__nombre_ruta)
+            modelo.crear_cuaderno()
+
+
 
 
 
