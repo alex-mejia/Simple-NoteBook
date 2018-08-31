@@ -1,3 +1,5 @@
+# operaciones en las bases de datos
+
 import sqlite3
 
 class Modelo:

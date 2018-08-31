@@ -1,5 +1,8 @@
+# cuaderno de trabajo
+
 from tkinter import filedialog
 from modelo import *
+from cuadernos_toolbar import BarraCuadernos
 
 class Cuaderno:
     def __init__(self):
@@ -8,11 +11,11 @@ class Cuaderno:
         self.__nombre = None
         self.__extension = None
 
-    def crear_cuaderno(self,entry_local,chk_local):
+    def crear_cuaderno(self,entry_local,chk_local,barra_cuadernos):
         self.__nombre_ruta = filedialog.asksaveasfilename(defaultextension='.snb', initialdir="/",
                                                       title="Crear nuevo Cuaderno",
                                                       filetypes=(('Archivos spn', '*.ntb'),))
-        if self.__nombre_ruta is None:
+        if self.__nombre_ruta == "":
             return
         else:
             self.__dividir_nombre_ruta_extension()
@@ -20,6 +23,8 @@ class Cuaderno:
             modelo.crear_cuaderno()
             entry_local.config(state = 'normal')
             chk_local.config(state = 'normal')
+            barra = BarraCuadernos()
+            barra.agregar_cuaderno(barra_cuadernos,self.__nombre)
 
     def get_ruta_nombre_extension(self):
         return self.__ruta, self.__nombre, self.__extension

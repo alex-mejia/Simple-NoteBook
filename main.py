@@ -5,15 +5,11 @@ from cuaderno import Cuaderno
 
 raiz = Tk()
 
-#######################################################################################################################
-
 def centrar_ventana():
     screen_width = raiz.winfo_screenwidth()
     screen_height = raiz.winfo_screenheight()
-
     x_coordinate = (screen_width/2) - (constantes.WIDTH_OF_WINDOW/2)
     y_coordinate = (screen_height / 2) - (constantes.HEIGHT_OF_WINDOW / 2)
-
     return x_coordinate,y_coordinate
 
 xpos = int(centrar_ventana()[0])
@@ -24,7 +20,7 @@ raiz.geometry(f"{constantes.WIDTH_OF_WINDOW}x{constantes.HEIGHT_OF_WINDOW}+{xpos
 raiz.columnconfigure(0, weight=1)
 raiz.rowconfigure(0, weight=1)
 raiz.rowconfigure(1, weight=2)
-
+############################################# DEFINCIO DE WIDGETS#######################################################
 
 ######################################## maneja el frame top donde iran los cuadernos
 frame_top = Frame(raiz,bg='black')
@@ -88,7 +84,7 @@ barra_menu = Menu(raiz)
 archivo_menu = Menu(barra_menu,tearoff=False)
 ayuda_menu = Menu(barra_menu,tearoff=False)
 
-archivo_menu.add_command(label="Crear cuaderno",command=lambda :Cuaderno().crear_cuaderno(entry_item,chk_es_seccion))
+archivo_menu.add_command(label="Crear cuaderno",command=lambda :Cuaderno().crear_cuaderno(entry_item,chk_es_seccion,frame_top))
 
 archivo_menu.add_command(label="Cerrar cuaderno")
 archivo_menu.add_separator()
