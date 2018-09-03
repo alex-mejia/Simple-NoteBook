@@ -2,7 +2,7 @@ from tkinter import *
 from tkinter.font import Font
 import constantes
 from cuaderno import Cuaderno
-
+from cuadernos_toolbar import *
 raiz = Tk()
 
 
@@ -33,7 +33,7 @@ frame_top_agregar_cuaderno.grid(row=0,column=0,sticky=N+S+W)
 frame_top_agregar_cuaderno.rowconfigure(0,weight=1)
 btn_agregar_cuaderno = Label(frame_top_agregar_cuaderno,text="+",bg='#404040',
                              font=Font(family="Sans Serif", size=20),fg='yellow',cursor="hand2")
-btn_agregar_cuaderno.bind("<Button-1>",lambda event:print('prueba'))
+btn_agregar_cuaderno.bind("<Button-1>",lambda event:BarraCuadernos.crea_acceso_directo(frame_top))
 btn_agregar_cuaderno.grid(row=0,column=0,padx=10,sticky=N+S)
 
 ######################################## contenedor para la nota y el indice

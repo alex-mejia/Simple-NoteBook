@@ -3,6 +3,7 @@
 from tkinter import filedialog
 from modelo import *
 import json
+from cuadernos_toolbar import BarraCuadernos
 
 class Cuaderno:
     def __init__(self):
@@ -27,6 +28,12 @@ class Cuaderno:
             chk_local.config(state = 'normal')
 
             self.__set_cuaderno_archivo_config()
+
+            # poner los datos del cuaderno globales
+            BarraCuadernos.ruta_cuaderno = self.__ruta
+            BarraCuadernos.nombre_cuaderno = self.__nombre
+            BarraCuadernos.extension_cuaderno = self.__extension
+
 
 
     def __dividir_nombre_ruta_extension(self):
