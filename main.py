@@ -5,6 +5,7 @@ from cuaderno import Cuaderno
 
 raiz = Tk()
 
+
 def centrar_ventana():
     screen_width = raiz.winfo_screenwidth()
     screen_height = raiz.winfo_screenheight()
@@ -19,12 +20,21 @@ raiz.configure(background='black')
 raiz.geometry(f"{constantes.WIDTH_OF_WINDOW}x{constantes.HEIGHT_OF_WINDOW}+{xpos}+{ypos}")
 raiz.columnconfigure(0, weight=1)
 raiz.rowconfigure(0, weight=1)
-raiz.rowconfigure(1, weight=2)
+raiz.rowconfigure(1, weight=5)
 ############################################# DEFINCIO DE WIDGETS#######################################################
 
 ######################################## maneja el frame top donde iran los cuadernos
 frame_top = Frame(raiz,bg='black')
 frame_top.grid(row=0, column=0, sticky=W + E + N + S)
+frame_top.rowconfigure(0,weight=1)
+
+frame_top_agregar_cuaderno = Frame(frame_top,bg='#404040')
+frame_top_agregar_cuaderno.grid(row=0,column=0,sticky=N+S+W)
+frame_top_agregar_cuaderno.rowconfigure(0,weight=1)
+btn_agregar_cuaderno = Label(frame_top_agregar_cuaderno,text="+",bg='#404040',
+                             font=Font(family="Sans Serif", size=20),fg='yellow',cursor="hand2")
+btn_agregar_cuaderno.bind("<Button-1>",lambda event:print('prueba'))
+btn_agregar_cuaderno.grid(row=0,column=0,padx=10,sticky=N+S)
 
 ######################################## contenedor para la nota y el indice
 frame_botton = Frame(raiz)
@@ -84,7 +94,8 @@ barra_menu = Menu(raiz)
 archivo_menu = Menu(barra_menu,tearoff=False)
 ayuda_menu = Menu(barra_menu,tearoff=False)
 
-archivo_menu.add_command(label="Crear cuaderno",command=lambda :Cuaderno().crear_cuaderno(entry_item,chk_es_seccion,frame_top))
+
+archivo_menu.add_command(label="Crear cuaderno",command=lambda :Cuaderno().crear_cuaderno(entry_item,chk_es_seccion))
 
 archivo_menu.add_command(label="Cerrar cuaderno")
 archivo_menu.add_separator()
