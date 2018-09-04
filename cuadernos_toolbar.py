@@ -1,5 +1,6 @@
 from tkinter import Label
 from tkinter.font import Font
+from tkinter import messagebox
 
 # maneja los accesos rapidos de los cuadernos creado en la barra de herramientas de la app
 
@@ -11,9 +12,21 @@ class BarraCuadernos:
   @staticmethod
   def crea_acceso_directo(padre):
       numero_actual = len(padre.children.values())
-      acceso_directo = Label(padre,text=BarraCuadernos.nombre_cuaderno,bg="black",fg="yellow",font=Font(family="Sans Serif", size=12))
 
-      acceso_directo.grid(row=0,column=numero_actual,padx=10)
+      nombre_cuaderno = BarraCuadernos.nombre_cuaderno
+
+      if numero_actual > 7:
+          messagebox.showwarning("No se pudo agregar Acceso directo", "Favor elimine algun acceso directo para agregar mas.")
+      elif nombre_cuaderno is None:
+          messagebox.showwarning("No se pudo agregar Acceso directo", "Favor abra o cree un cuaderno.")
+      else:
+          acceso_directo = Label(padre, text=BarraCuadernos.nombre_cuaderno, bg="black", fg="yellow",
+          font=Font(family="Sans Serif", size=12))
+          acceso_directo.grid(row=0,column=numero_actual,padx=10)
+
+      BarraCuadernos.nombre_cuaderno = None
+
+
 
 
 

@@ -1,5 +1,5 @@
 from tkinter import *
-from tkinter.font import Font
+
 import constantes
 from cuaderno import Cuaderno
 from cuadernos_toolbar import *
