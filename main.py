@@ -24,8 +24,8 @@ raiz.rowconfigure(1, weight=5)
 ############################################# DEFINCIO DE WIDGETS#######################################################
 
 ######################################## maneja el frame top donde iran los cuadernos
-frame_top = Frame(raiz,bg='black')
-frame_top.grid(row=0, column=0, sticky=W + E + N + S)
+frame_top = Frame(raiz,bg='orange')
+frame_top.grid(row=0, column=0, sticky=W  + N + S)
 frame_top.rowconfigure(0,weight=1)
 
 frame_top_agregar_cuaderno = Frame(frame_top,bg='#404040')

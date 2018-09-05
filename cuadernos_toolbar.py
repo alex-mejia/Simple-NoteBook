@@ -1,6 +1,7 @@
 from tkinter import Label
 from tkinter.font import Font
 from tkinter import messagebox
+import constantes
 
 # maneja los accesos rapidos de los cuadernos creado en la barra de herramientas de la app
 
@@ -15,7 +16,9 @@ class BarraCuadernos:
 
       nombre_cuaderno = BarraCuadernos.nombre_cuaderno
 
-      if numero_actual > 7:
+      limite_derecho_padre = padre.winfo_width() #el tamaño del frame top
+
+      if limite_derecho_padre >= constantes.WIDTH_OF_WINDOW-250:
           messagebox.showwarning("No se pudo agregar Acceso directo", "Favor elimine algun acceso directo para agregar mas.")
       elif nombre_cuaderno is None:
           messagebox.showwarning("No se pudo agregar Acceso directo", "Favor abra o cree un cuaderno.")
