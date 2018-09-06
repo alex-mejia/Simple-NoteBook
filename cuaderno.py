@@ -3,14 +3,14 @@
 from tkinter import filedialog
 from modelo import *
 import json
-from cuadernos_toolbar import BarraCuadernos
 
 class Cuaderno:
-    def __init__(self):
+    def __init__(self,raiz):
         self.__nombre_ruta = None
         self.__ruta = None
         self.__nombre = None
         self.__extension = None
+        self.__raiz = raiz
 
     def crear_cuaderno(self,entry_local,chk_local):
         self.__nombre_ruta = filedialog.asksaveasfilename(defaultextension='.snb', initialdir="/",
@@ -28,13 +28,7 @@ class Cuaderno:
             chk_local.config(state = 'normal')
 
             self.__set_cuaderno_archivo_config()
-
-            # poner los datos del cuaderno globales
-            BarraCuadernos.ruta_cuaderno = self.__ruta
-            BarraCuadernos.nombre_cuaderno = self.__nombre
-            BarraCuadernos.extension_cuaderno = self.__extension
-
-
+            self.__raiz.title(self.__ruta+self.__nombre)
 
     def __dividir_nombre_ruta_extension(self):
         # separa extension
