@@ -2,6 +2,7 @@ from tkinter import Tk
 from view import *
 from model import *
 from tkinter import filedialog
+from  notebook import *
 
 class Controller:
     def __init__(self):
@@ -9,7 +10,7 @@ class Controller:
         self.view = View(self.root)
         self.menu_bar = self.view.get_menu()
         self.model = Model()
-        self.file_name = None
+        self.note_book = NoteBook()
 
     def run(self):
         self.root.title("Simple NoteBook")
@@ -51,13 +52,16 @@ class Controller:
         self.root.config(menu=self.menu_bar)
 
     def create_noteBook(self):
-        self.file_name = filedialog.asksaveasfilename(defaultextension='.snb', title="New Simple NoteBook",
-                                                         filetypes=(('Files spn', '*.ntb'),))
-        if  self.file_name == "":
+        nb_file_path = filedialog.asksaveasfilename(defaultextension='.snb', title="New Simple NoteBook",
+                                                        filetypes=(('Files spn', '*.ntb'),))
+        self.note_book.set_nb_path(nb_file_path)
+
+        if  nb_file_path == "":
             return
         else:
-            #self.__dividir_nombre_ruta_extension()
-            self.model.create_noteBook(self.file_name)
-            #entry_local.config(state='normal')
-            #chk_local.config(state='normal')
+            self.model.create_noteBook(nb_file_path)
+            self.view.index_panel.chk_is_section.config(state='normal')
+            self.view.index_panel.entry.config(state='normal')
+
+
 

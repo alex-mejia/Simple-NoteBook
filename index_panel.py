@@ -11,11 +11,11 @@ class IndexPanel:
         self.frame_tools = Frame(self.frame_index,bg="#9bbbf2")
         self.frame_tools.grid(row=0,column=0,sticky="nsew")
 
-        entry = Entry(self.frame_tools,state='disabled',width=25)
-        entry.grid(row=0,column=0,padx=8,pady=8,sticky="w")
+        self.entry = Entry(self.frame_tools,state='disabled',width=25)
+        self.entry.grid(row=0,column=0,padx=8,pady=8,sticky="w")
 
-        chk_is_section = Checkbutton(self.frame_tools,text="Is section",bg="#9bbbf2",state='disabled')
-        chk_is_section.grid(row=0,column=1,padx=8,pady=8,sticky="w")
+        self.chk_is_section = Checkbutton(self.frame_tools,text="Is section",bg="#9bbbf2",state='disabled')
+        self.chk_is_section.grid(row=0,column=1,padx=8,pady=8,sticky="w")
 
         ############################################# index items frame
         self.frame_items_index = Frame(self.frame_index,bg="#bdcfed")

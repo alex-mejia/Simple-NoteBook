@@ -13,6 +13,7 @@ class View:
     def get_menu(self):
         return self.menu_bar
 
-
+    #def get_index_panel(self):
+        return self.index_panel
 
 
