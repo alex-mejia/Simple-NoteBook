@@ -8,12 +8,5 @@ class View:
         self.note_panel = NotePanel(self.root)
         self.index_panel = IndexPanel(self.root)
         self.menu_bar = Menu(root)
-
-
-    def get_menu(self):
-        return self.menu_bar
-
-    #def get_index_panel(self):
-        return self.index_panel
-
+        #
 

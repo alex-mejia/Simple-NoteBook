@@ -8,9 +8,20 @@ class Controller:
     def __init__(self):
         self.root = Tk()
         self.view = View(self.root)
-        self.menu_bar = self.view.get_menu()
+        self.menu_bar = self.view.menu_bar
         self.model = Model()
         self.note_book = NoteBook()
+
+        self.items_list = self.view.index_panel.items_list
+        self.items_list.bind('<<ListboxSelect>>',self.get_selected_item)
+        self.items_list.bind('<Control-Down>',self.move_item_down)
+        self.items_list.bind('<Control-Up>', self.move_item_up)
+
+        self.entry_item = self.view.index_panel.entry
+
+        self.entry_item.bind('<FocusOut>', lambda event: print("foco perdido"))
+        self.entry_item.bind('<Return>', self.entry_new_item)
+
 
     def run(self):
         self.root.title("Simple NoteBook")
@@ -62,6 +73,32 @@ class Controller:
             self.model.create_noteBook(nb_file_path)
             self.view.index_panel.chk_is_section.config(state='normal')
             self.view.index_panel.entry.config(state='normal')
+            self.view.index_panel.entry.focus_set()
+            self.view.note_panel.note_text.config(state='normal')
 
+    def entry_new_item(self, event):
+        self.items_list.insert(END, self.entry_item.get())
+        self.entry_item.delete(0, END)
+
+    def get_selected_item(self,event):
+        return self.items_list.curselection()[0]
+
+    def move_item_down(self,event):
+        current_item_index=self.get_selected_item(self)
+        current_item_text = self.items_list.get(self.items_list.curselection())
+        next_item_index=self.get_selected_item(self) + 1
+
+        self.items_list.delete(current_item_index)
+        self.items_list.insert(next_item_index,current_item_text)
+
+    def move_item_up(self,event):
+        current_item_index = self.get_selected_item(self)
+        current_item_text = self.items_list.get(self.items_list.curselection())
+        previous_item_index = self.get_selected_item(self) - 1
+
+        self.items_list.delete(current_item_index)
+        self.items_list.insert(previous_item_index, current_item_text)
+        #selects the moved item
+        self.items_list.activate(current_item_index)
 
 

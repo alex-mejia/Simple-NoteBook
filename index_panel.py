@@ -1,5 +1,6 @@
 from tkinter import Frame,Entry,Checkbutton,Listbox,Scrollbar
 from  tkinter.font import Font
+from tkinter import END
 
 class IndexPanel:
     def __init__(self,root):
@@ -11,8 +12,7 @@ class IndexPanel:
         self.frame_tools = Frame(self.frame_index,bg="#9bbbf2")
         self.frame_tools.grid(row=0,column=0,sticky="nsew")
 
-        self.entry = Entry(self.frame_tools,state='disabled',width=25)
-        self.entry.grid(row=0,column=0,padx=8,pady=8,sticky="w")
+
 
         self.chk_is_section = Checkbutton(self.frame_tools,text="Is section",bg="#9bbbf2",state='disabled')
         self.chk_is_section.grid(row=0,column=1,padx=8,pady=8,sticky="w")
@@ -30,6 +30,10 @@ class IndexPanel:
         scroll_vertical = Scrollbar(self.frame_items_index, command=self.items_list.yview)
         scroll_vertical.grid(row=0, column=1, sticky="nsew")
         self.items_list.config(yscrollcommand=scroll_vertical.set)
+
+        self.entry = Entry(self.frame_tools, state='disabled', width=25)
+        self.entry.grid(row=0, column=0, padx=8, pady=8, sticky="w")
+
 
 
 
