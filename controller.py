@@ -3,6 +3,7 @@ from view import *
 from model import *
 from tkinter import filedialog
 from  notebook import *
+from tkinter import messagebox
 
 class Controller:
     def __init__(self):
@@ -16,6 +17,7 @@ class Controller:
         self.items_list.bind('<<ListboxSelect>>',self.get_selected_item)
         self.items_list.bind('<Control-Down>',self.move_item_down)
         self.items_list.bind('<Control-Up>', self.move_item_up)
+        self.items_list.bind('<Delete>', self.delete_item)
 
         self.entry_item = self.view.index_panel.entry
 
@@ -77,11 +79,15 @@ class Controller:
             self.view.note_panel.note_text.config(state='normal')
 
     def entry_new_item(self, event):
-        self.items_list.insert(END, self.entry_item.get())
-        self.entry_item.delete(0, END)
+        if self.entry_item.get() is not "":
+            self.items_list.insert(END, self.entry_item.get())
+            self.entry_item.delete(0, END)
 
     def get_selected_item(self,event):
-        return self.items_list.curselection()[0]
+        try:
+            return self.items_list.curselection()[0]
+        except IndexError:
+            return None
 
     def move_item_down(self,event):
         current_item_index=self.get_selected_item(self)
@@ -100,5 +106,12 @@ class Controller:
         self.items_list.insert(previous_item_index, current_item_text)
         #selects the moved item
         self.items_list.activate(current_item_index)
+
+    def delete_item(self,event):
+        current_item = self.get_selected_item(event)
+        if  current_item is not None:
+            result = messagebox.askquestion("Delete","Delete item?")
+            if result == "yes" and current_item is not None:
+                self.items_list.delete(current_item)
 
 
