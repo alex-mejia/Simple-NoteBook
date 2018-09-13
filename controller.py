@@ -1,4 +1,4 @@
-from tkinter import Tk
+from tkinter import Tk,ACTIVE
 from view import *
 from model import *
 from tkinter import filedialog
@@ -18,11 +18,15 @@ class Controller:
         self.items_list.bind('<Control-Down>',self.move_item_down)
         self.items_list.bind('<Control-Up>', self.move_item_up)
         self.items_list.bind('<Delete>', self.delete_item)
+        self.items_list.bind('<Double-Button-1>', self.get_edit_item)
 
         self.entry_item = self.view.index_panel.entry
 
         self.entry_item.bind('<FocusOut>', lambda event: print("foco perdido"))
-        self.entry_item.bind('<Return>', self.entry_new_item)
+        self.entry_item.bind('<Return>', self.insert_or_update_item)
+
+        self.item_edit_mode = False
+        self.current_item = None
 
 
     def run(self):
@@ -108,10 +112,28 @@ class Controller:
         self.items_list.activate(current_item_index)
 
     def delete_item(self,event):
-        current_item = self.get_selected_item(event)
-        if  current_item is not None:
+        self.current_item = self.get_selected_item(event)
+        if  self.current_item is not None:
             result = messagebox.askquestion("Delete","Delete item?")
-            if result == "yes" and current_item is not None:
-                self.items_list.delete(current_item)
+            if result == "yes" and self.current_item is not None:
+                self.items_list.delete(self.current_item)
+                self.entry_item.delete(0, END)
+
+    def insert_or_update_item(self,event):
+        if self.item_edit_mode:
+            self.items_list.delete(self.current_item)
+            self.items_list.insert(self.current_item, self.entry_item.get())
+            self.entry_item.delete(0, END)
+            self.item_edit_mode = False
+        else:
+            self.entry_new_item(event)
+
+    def get_edit_item(self,event):
+        self.entry_item.delete(0, END)
+        self.entry_item.insert(0,self.items_list.get(self.items_list.curselection()))
+
+        self.current_item = self.get_selected_item(event)
+
+        self.item_edit_mode = True
 
 
