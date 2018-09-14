@@ -1,4 +1,4 @@
-from tkinter import Tk,ACTIVE
+from tkinter import Tk, IntVar
 from view import *
 from model import *
 from tkinter import filedialog
@@ -19,15 +19,16 @@ class Controller:
         self.items_list.bind('<Control-Up>', self.move_item_up)
         self.items_list.bind('<Delete>', self.delete_item)
         self.items_list.bind('<Double-Button-1>', self.get_edit_item)
+        self.items_list.bind('<FocusOut>', self.update_item_position_db)
 
         self.entry_item = self.view.index_panel.entry
 
-        self.entry_item.bind('<FocusOut>', lambda event: print("foco perdido"))
         self.entry_item.bind('<Return>', self.insert_or_update_item)
 
         self.item_edit_mode = False
         self.current_item = None
-
+        self.current_item_text = None
+        self.items_list_moved = None
 
     def run(self):
         self.root.title("Simple NoteBook")
@@ -55,7 +56,7 @@ class Controller:
         menu_file.add_command(label="Open NoteBook")
         menu_file.add_command(label="Close NoteBook")
         menu_file.add_separator()
-        menu_file.add_command(label="Save Note")
+        menu_file.add_command(label="Save Note",command=self.update_item_position_db)
         menu_file.add_command(label="Delete Note")
         menu_file.add_separator()
         menu_file.add_command(label="Exit")
@@ -71,20 +72,24 @@ class Controller:
     def create_noteBook(self):
         nb_file_path = filedialog.asksaveasfilename(defaultextension='.snb', title="New Simple NoteBook",
                                                         filetypes=(('Files spn', '*.ntb'),))
+
         self.note_book.set_nb_path(nb_file_path)
 
         if  nb_file_path == "":
             return
         else:
+            self.entry_item.delete(0, END)
+            self.items_list.delete(0,END)
+
             self.model.create_noteBook(nb_file_path)
-            self.view.index_panel.chk_is_section.config(state='normal')
             self.view.index_panel.entry.config(state='normal')
             self.view.index_panel.entry.focus_set()
             self.view.note_panel.note_text.config(state='normal')
 
     def entry_new_item(self, event):
         if self.entry_item.get() is not "":
-            self.items_list.insert(END, self.entry_item.get())
+            self.items_list.insert(END, self.entry_item.get()) # insert into listbox
+            self.model.insert_item(self.entry_item.get(), "") # insert into db
             self.entry_item.delete(0, END)
 
     def get_selected_item(self,event):
@@ -97,9 +102,11 @@ class Controller:
         current_item_index=self.get_selected_item(self)
         current_item_text = self.items_list.get(self.items_list.curselection())
         next_item_index=self.get_selected_item(self) + 1
-
         self.items_list.delete(current_item_index)
         self.items_list.insert(next_item_index,current_item_text)
+        self.items_list_moved = True
+        #TODO ELIMINAR
+        print(self.items_list_moved)
 
     def move_item_up(self,event):
         current_item_index = self.get_selected_item(self)
@@ -116,13 +123,20 @@ class Controller:
         if  self.current_item is not None:
             result = messagebox.askquestion("Delete","Delete item?")
             if result == "yes" and self.current_item is not None:
+                current_item = self.items_list.get(self.items_list.curselection())
+                self.model.delete_item(current_item)
+
                 self.items_list.delete(self.current_item)
                 self.entry_item.delete(0, END)
+
 
     def insert_or_update_item(self,event):
         if self.item_edit_mode:
             self.items_list.delete(self.current_item)
             self.items_list.insert(self.current_item, self.entry_item.get())
+
+            self.model.update_item(self.entry_item.get(),self.current_item_text)
+
             self.entry_item.delete(0, END)
             self.item_edit_mode = False
         else:
@@ -130,10 +144,27 @@ class Controller:
 
     def get_edit_item(self,event):
         self.entry_item.delete(0, END)
+        self.current_item_text = self.items_list.get(self.items_list.curselection()) # to store the old value if edited
         self.entry_item.insert(0,self.items_list.get(self.items_list.curselection()))
 
         self.current_item = self.get_selected_item(event)
 
         self.item_edit_mode = True
+
+    # updates the item in db when changed position in listbox
+    def update_item_position_db(self,event):
+        if self.items_list_moved is True:
+            #TODO ELIMINAR
+            print("Guardando...")
+            all_items = self.items_list.get(0,END)
+            self.model.update_item_postion(all_items)
+
+        self.items_list_moved = None
+
+
+
+
+
+
 
 

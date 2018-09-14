@@ -13,10 +13,6 @@ class IndexPanel:
         self.frame_tools.grid(row=0,column=0,sticky="nsew")
 
 
-
-        self.chk_is_section = Checkbutton(self.frame_tools,text="Is section",bg="#9bbbf2",state='disabled')
-        self.chk_is_section.grid(row=0,column=1,padx=8,pady=8,sticky="w")
-
         ############################################# index items frame
         self.frame_items_index = Frame(self.frame_index,bg="#bdcfed")
         self.frame_items_index.grid(row=1, column=0,sticky="nsew")
@@ -31,7 +27,7 @@ class IndexPanel:
         scroll_vertical.grid(row=0, column=1, sticky="nsew")
         self.items_list.config(yscrollcommand=scroll_vertical.set)
 
-        self.entry = Entry(self.frame_tools, state='disabled', width=25)
+        self.entry = Entry(self.frame_tools, state='disabled', width=40)
         self.entry.grid(row=0, column=0, padx=8, pady=8, sticky="w")
 
 

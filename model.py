@@ -18,8 +18,7 @@ class Model:
         self.__file_name=file_name
         try:
             self.__connect()
-            self.__cursor.execute("CREATE TABLE ITEMS (ID INTEGER PRIMARY KEY AUTOINCREMENT, ITEM VARCHAR(35))")
-            self.__cursor.execute("CREATE TABLE NOTES (ID INTEGER PRIMARY KEY AUTOINCREMENT, NOTE VARCHAR(10000))")
+            self.__cursor.execute("CREATE TABLE ITEMS (ID INTEGER PRIMARY KEY AUTOINCREMENT, ITEM VARCHAR(35), NOTE VARCHAR(10000))")
             self.__connection.commit()
         except sqlite3.OperationalError as er:
             #TODO mensaje de error
@@ -27,5 +26,52 @@ class Model:
         finally:
             self.__disconnect()
 
+    def insert_item(self,item,note):
+        items = (item,note)
+        try:
+            self.__connect()
+            self.__cursor.execute("INSERT INTO ITEMS VALUES(NULL,?,?)",(items))
+            self.__connection.commit()
+        except sqlite3.OperationalError as er:
+            #TODO mensaje de error
+            pass
+        finally:
+            self.__disconnect()
 
+    def delete_item(self,item):
+        try:
+            self.__connect()
+            self.__cursor.execute("DELETE FROM ITEMS WHERE ITEM = ?",(item,))
+            self.__connection.commit()
+        except sqlite3.OperationalError as er:
+            #TODO mensaje de error
+            pass
+        finally:
+            self.__disconnect()
 
+    def update_item(self,new_item,old_item):
+        try:
+            self.__connect()
+            self.__cursor.execute("UPDATE ITEMS SET ITEM=? WHERE ITEM=?",(new_item,old_item))
+            self.__connection.commit()
+        except sqlite3.OperationalError as er:
+            #TODO mensaje de error
+            pass
+        finally:
+            self.__disconnect()
+
+    def update_item_postion(self,item_list):
+        contador = 1
+        try:
+            self.__connect()
+
+            for i in item_list:
+                self.__cursor.execute("UPDATE ITEMS SET ITEM=? WHERE ID=?",(i,contador))
+                contador = contador + 1
+
+            self.__connection.commit()
+        except sqlite3.OperationalError as er:
+            #TODO mensaje de error
+            print(er)
+        finally:
+            self.__disconnect()
