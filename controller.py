@@ -13,6 +13,8 @@ class Controller:
         self.model = Model()
         self.note_book = NoteBook()
 
+        self.root.protocol("WM_DELETE_WINDOW", self.on_closing)
+
         self.items_list = self.view.index_panel.items_list
         self.items_list.bind('<<ListboxSelect>>',self.get_selected_item)
         self.items_list.bind('<Control-Down>',self.move_item_down)
@@ -47,6 +49,10 @@ class Controller:
         x_coordinate = int((screen_width / 2) - (1100 / 2))
         y_coordinate = int((screen_height / 2) - (600 / 2))
         self.root.geometry(f"1100x600+{x_coordinate}+{y_coordinate}")
+
+    def on_closing(self):
+        self.update_item_position_db()
+        self.root.destroy()
 
     def create_menu(self):
         menu_file = Menu(self.menu_bar, tearoff=False)
@@ -105,8 +111,6 @@ class Controller:
         self.items_list.delete(current_item_index)
         self.items_list.insert(next_item_index,current_item_text)
         self.items_list_moved = True
-        #TODO ELIMINAR
-        print(self.items_list_moved)
 
     def move_item_up(self,event):
         current_item_index = self.get_selected_item(self)
@@ -117,6 +121,7 @@ class Controller:
         self.items_list.insert(previous_item_index, current_item_text)
         #selects the moved item
         self.items_list.activate(current_item_index)
+        self.items_list_moved = True
 
     def delete_item(self,event):
         self.current_item = self.get_selected_item(event)
@@ -152,10 +157,8 @@ class Controller:
         self.item_edit_mode = True
 
     # updates the item in db when changed position in listbox
-    def update_item_position_db(self,event):
+    def update_item_position_db(self,event=None):
         if self.items_list_moved is True:
-            #TODO ELIMINAR
-            print("Guardando...")
             all_items = self.items_list.get(0,END)
             self.model.update_item_postion(all_items)
 
