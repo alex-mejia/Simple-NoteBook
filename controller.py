@@ -101,6 +101,7 @@ class Controller:
             # sets the current created file to main window title
             self.root.title(nb_file_path)
 
+    # opens an existing notebook
     def open_noteBook(self):
         nb_file_path = filedialog.askopenfile(title="Open NoteBook", filetypes=(("Simple NoteBook files", "*.ntb"),))
 
@@ -120,6 +121,7 @@ class Controller:
             # clear the note
             self.note.delete(1.0,END)
 
+            # adds the db list to the itemslist
             for i in index_list:
                 self.items_list.insert(END,i[1])
 
@@ -232,7 +234,8 @@ class Controller:
 
     # changes note border if text changed to inform the user to save
     def note_text_changed(self,event=None):
-        self.note.config(borderwidth = 10)
+        if self.note['state'] != 'disabled':
+            self.note.config(borderwidth = 10)
 
 
 
