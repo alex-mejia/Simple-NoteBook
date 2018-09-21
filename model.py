@@ -13,6 +13,7 @@ class Model:
 
     # closes connection
     def __disconnect(self):
+        pass
         self.__cursor.close()
         self.__connection.close()
 
@@ -28,6 +29,22 @@ class Model:
             pass
         finally:
             self.__disconnect()
+
+    # open a new mysql file(notebook)
+    def open_noteBook(self,file_name):
+        self.__file_name = file_name
+        try:
+            result = None
+            self.__connect()
+            self.__cursor.execute("SELECT * FROM ITEMS")
+            self.__connection.commit()
+            result = self.__cursor.fetchall()
+        except sqlite3.OperationalError as er:
+            #TODO error msg
+            print(er)
+        finally:
+            self.__disconnect()
+            return result
 
     # inserts a new index item
     def insert_item(self,item,note):

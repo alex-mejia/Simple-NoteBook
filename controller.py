@@ -101,9 +101,27 @@ class Controller:
             # sets the current created file to main window title
             self.root.title(nb_file_path)
 
-    #TODO
     def open_noteBook(self):
-        print("abriendo libro")
+        nb_file_path = filedialog.askopenfile(title="Open NoteBook", filetypes=(("Simple NoteBook files", "*.ntb"),))
+
+        if nb_file_path is None:
+            return
+        else:
+            self.note_book.set_nb_path(nb_file_path.name)
+            index_list=self.model.open_noteBook(nb_file_path.name)
+
+            self.view.index_panel.entry.config(state='normal')
+            self.root.title(nb_file_path.name)
+
+            # clear the listbox
+            self.items_list.delete(0,END)
+            # clear the entry
+            self.view.index_panel.entry.delete(0,END)
+            # clear the note
+            self.note.delete(1.0,END)
+
+            for i in index_list:
+                self.items_list.insert(END,i[1])
 
     # for adding new index items
     def entry_new_item(self, event):
