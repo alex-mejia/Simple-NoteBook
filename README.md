@@ -4,7 +4,9 @@ Cuaderno simple para organizar temas y notas. Con inidice para manejar los temas
 pendiente de completar archivo de ayuda y atajos del teclado
 
 - simplemente ejecute app.py
-Guia basica:
+
+- Guia basica:
+--------------
 - Cree un nuevo cuaderno desde el menu File/new NoteBook
 - Para insertar nuevos temas al cuaderno recien creado:
   - en la caja de texto de la izquierda escriba el tema y presiones "INTRO"
